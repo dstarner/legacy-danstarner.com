@@ -94,18 +94,18 @@
                     menu: 'ul.main-menu',
                 });
             }
-        })
-        .on('resize', function() { //Resize
-             mobileMenuHide();
-             $('.animated-section').each(function() {
-                $(this).perfectScrollbar('update');
-            });
-            customScroll();
         });
-
+        // .on('resize', function() { //Resize
+        //      mobileMenuHide();
+        //      $('.animated-section').each(function() {
+        //         $(this).perfectScrollbar('update');
+        //     });
+        //     customScroll();
+        // });
 
     // On Document Load
     $(document).ready(function () {
+
         var movementStrength = 23;
         var height = movementStrength / $(document).height();
         var width = movementStrength / $(document).width();

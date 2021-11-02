@@ -5,6 +5,10 @@
 * Version: 1.5.0
 */
 
+
+var ADVANCE_KEYS = [39, 40, 68, 83];
+var PREVIOUS_KEYS = [37, 38, 65, 87];
+
 var PageTransitions = (function ($, options) {
 "use strict";
     var sectionsContainer = $(".animated-sections"),
@@ -82,19 +86,35 @@ var PageTransitions = (function ($, options) {
         $('body').append('<div id="page-ajax-loaded" class="page-ajax-loaded animated animated-section-moveFromLeft"></div>');
         ajaxLoader();
 
-        $(".lmpixels-arrow-right").click(function() {
+        var advance = function() {
             var activeItem = $('.main-menu a.active').parent("li");
             activeItem.next("li").children("a").click();
             if ( activeItem.is(':last-child') ) {
                 $('.main-menu li:first-child').children("a").click();
             }
-        });
+        }
 
-        $(".lmpixels-arrow-left").click(function() {
+        var previous = function() {
             var activeItem = $('.main-menu a.active').parent("li");
             activeItem.prev("li").children("a").click();
             if ( activeItem.is(':first-child') ) {
                 $('.main-menu li:last-child').children("a").click();
+            }
+        }
+
+        $(".lmpixels-arrow-right").click(advance);
+
+        $(".lmpixels-arrow-left").click(previous);
+
+        $(document).keyup(function(e) {
+            if ($("input:focus").length) { return; }
+            var code = e.which;
+            if (PREVIOUS_KEYS.indexOf(code) !== -1) {
+                previous();
+            } else if (ADVANCE_KEYS.indexOf(code) !== -1) {
+                advance();
+            } else {
+                console.log(code);
             }
         });
     }

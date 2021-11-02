@@ -375,6 +375,7 @@ input[type="submit"]:focus {
 }
 
 .lmpixels-arrows-nav div {
+  cursor: pointer;
   display: block;
   position: relative;
   text-align: center;
