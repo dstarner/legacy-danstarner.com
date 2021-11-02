@@ -155,7 +155,7 @@
             $container.masonry();
         });
 
-        customScroll();
+        // customScroll();
 
         // Text rotation
         $('.text-rotation').owlCarousel({
