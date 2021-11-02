@@ -1341,20 +1341,20 @@ a.lm-info-block:hover {
 }
 
 /* --- Skills Values --- */
-.skills-second-style .skill-container.skill-1 .skill-percentage {
+.skills-second-style .skill-container.skill-web-dev .skill-percentage {
+  width: 90%;
+}
+
+.skills-second-style .skill-container.skill-apis .skill-percentage {
   width: 95%;
 }
 
-.skills-second-style .skill-container.skill-2 .skill-percentage {
-  width: 65%;
-}
-
-.skills-second-style .skill-container.skill-3 .skill-percentage {
+.skills-second-style .skill-container.skill-cloud .skill-percentage {
   width: 80%;
 }
 
-.skills-second-style .skill-container.skill-4 .skill-percentage {
-  width: 90%;
+.skills-second-style .skill-container.skill-sysadmin .skill-percentage {
+  width: 75%;
 }
 
 .skills-second-style .skill-container.skill-js .skill-percentage {
