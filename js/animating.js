@@ -117,6 +117,9 @@ var PageTransitions = (function ($, options) {
                 console.log(code);
             }
         });
+
+        $(".content-area").on( "swipeleft", previous);
+        $(".content-area").on( "swiperight", advance);
     }
 
     function getActiveSection() {
