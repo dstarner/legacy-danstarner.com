@@ -290,10 +290,6 @@ input[type="submit"]:focus {
     overflow: auto;
   }
 
-  .header-titles {
-
-  }
-
   /* --- Navigation --- */
   ul.main-menu {
     position: absolute;
@@ -1404,7 +1400,7 @@ a.lm-info-block:hover {
   list-style: none;
 }
 
-.knowledges li {;
+.knowledges li {
   display: inline-block;
   background-color: #09aeea;
   border-radius: 3px;
@@ -2164,11 +2160,36 @@ a.lm-info-block:hover {
   border: 1px solid #9e9e9e;
   display: block;
   -webkit-backface-visibility: visible;
+  backface-visibility: visible;
   transition: opacity 200ms ease;
   border-radius: 30px;
 }
 /* Portfolio Carousel */
 
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: grey;
+}
 
 /* ------------------------------------------------------------
 7. Single Page (Blog Posts, 404 etc.)
