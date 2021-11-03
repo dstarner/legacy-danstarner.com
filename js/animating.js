@@ -88,7 +88,12 @@ var PageTransitions = (function ($, options) {
         $('body').append('<div id="page-ajax-loaded" class="page-ajax-loaded animated animated-section-moveFromLeft"></div>');
         ajaxLoader();
 
-        function refocus() { $(".section-active").focus(); }
+        function refocus() { 
+            if ($(".form-control:focus").length) {
+                return;
+            }
+            $(".section-active").focus(); 
+        }
 
         setInterval(refocus, 600);
 
@@ -119,7 +124,7 @@ var PageTransitions = (function ($, options) {
             document.addEventListener('swiped-right', previous);
         } else {
             $(document).keydown(function (e) {
-                if ($("input:focus").length) {
+                if ($(".form-control:focus").length) {
                     return;
                 }
                 var code = e.which;
@@ -130,7 +135,7 @@ var PageTransitions = (function ($, options) {
                 }
             });
             $(document).keyup(function (e) {
-                if ($("input:focus").length) {
+                if ($(".form-control:focus").length) {
                     return;
                 }
                 var code = e.which;
