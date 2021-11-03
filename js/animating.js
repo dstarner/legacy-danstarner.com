@@ -6,8 +6,8 @@
 */
 
 
-var ADVANCE_KEYS = [39, 40, 68, 83];
-var PREVIOUS_KEYS = [37, 38, 65, 87];
+var ADVANCE_KEYS = [39, 68];  // RIGHT, D
+var PREVIOUS_KEYS = [37, 65]; // LEFT, A
 
 var PageTransitions = (function ($, options) {
 "use strict";
@@ -92,6 +92,7 @@ var PageTransitions = (function ($, options) {
             if ( activeItem.is(':last-child') ) {
                 $('.main-menu li:first-child').children("a").click();
             }
+            $(".section-active").focus();
         }
 
         var previous = function() {
@@ -100,6 +101,7 @@ var PageTransitions = (function ($, options) {
             if ( activeItem.is(':first-child') ) {
                 $('.main-menu li:last-child').children("a").click();
             }
+            $(".section-active").focus();
         }
 
         $(".lmpixels-arrow-right").click(advance);
@@ -117,8 +119,6 @@ var PageTransitions = (function ($, options) {
                     previous();
                 } else if (ADVANCE_KEYS.indexOf(code) !== -1) {
                     advance();
-                } else {
-                    console.log(code);
                 }
             });
         }
