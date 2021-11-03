@@ -29,7 +29,10 @@ TEMPLATE = """
                                     </a>
                                 </div>
                                 <div class="post-info">
-                                    <div class="post-date">{published_at}</div>
+                                    <div class="post-details">
+                                      <div class="post-date">{published_at}</div>
+                                      <div class="post-views">{views_display} Views</div>
+                                    </div>
                                     <a href="{url}">
                                         <h4 class="blog-item-title">{title}</h4>
                                     </a>
@@ -46,6 +49,7 @@ class Article:
     id: str
     description: str
     published: bool
+    page_views_count: int
     tag_list: List[str]
     url: str
     published_timestamp: str
@@ -77,7 +81,8 @@ def get_articles():
 def article_to_html(article: Article):
     extras = {
         'published_at': article.published_dt.strftime('%d %B %Y'),
-        'tag_html': '\n'.join([TAG_TEMPLATE.format(tag=tag) for tag in article.tag_list])
+        'tag_html': '\n'.join([TAG_TEMPLATE.format(tag=tag) for tag in article.tag_list]),
+        'views_display': '<200' if article.page_views_count < 200 else article.page_views_count, 
     }
     return TEMPLATE.format(**extras, **asdict(article))
 

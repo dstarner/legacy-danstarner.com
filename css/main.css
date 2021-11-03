@@ -1756,7 +1756,13 @@ a.lm-info-block:hover {
   z-index: 3;
 }
 
-.blog-card .post-date {
+.blog-card .post-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blog-card .post-date, .blog-card .post-views {
   display: inline-block;
   color: #aaa;
   font-size: 11px;
