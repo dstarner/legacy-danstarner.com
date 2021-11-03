@@ -106,21 +106,21 @@ var PageTransitions = (function ($, options) {
 
         $(".lmpixels-arrow-left").click(previous);
 
-        $(document).keyup(function(e) {
-            if ($("input:focus").length) { return; }
-            var code = e.which;
-            if (PREVIOUS_KEYS.indexOf(code) !== -1) {
-                previous();
-            } else if (ADVANCE_KEYS.indexOf(code) !== -1) {
-                advance();
-            } else {
-                console.log(code);
-            }
-        });
-
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             $(".content-area").on( "swipeleft", previous);
             $(".content-area").on( "swiperight", advance);
+        } else {
+            $(document).keyup(function(e) {
+                if ($("input:focus").length) { return; }
+                var code = e.which;
+                if (PREVIOUS_KEYS.indexOf(code) !== -1) {
+                    previous();
+                } else if (ADVANCE_KEYS.indexOf(code) !== -1) {
+                    advance();
+                } else {
+                    console.log(code);
+                }
+            });
         }
     }
 
