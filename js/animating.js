@@ -107,8 +107,8 @@ var PageTransitions = (function ($, options) {
         $(".lmpixels-arrow-left").click(previous);
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            $(".content-area").on( "swipeleft", previous);
-            $(".content-area").on( "swiperight", advance);
+            document.addEventListener('swiped-left', advance);
+            document.addEventListener('swiped-right', previous);
         } else {
             $(document).keyup(function(e) {
                 if ($("input:focus").length) { return; }
