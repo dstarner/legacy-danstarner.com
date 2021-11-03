@@ -118,6 +118,17 @@ var PageTransitions = (function ($, options) {
             document.addEventListener('swiped-left', advance);
             document.addEventListener('swiped-right', previous);
         } else {
+            $(document).keydown(function (e) {
+                if ($("input:focus").length) {
+                    return;
+                }
+                var code = e.which;
+                if (W_KEY === code) {
+                    $(".section-active")[0].scrollBy({ top: -100, left: 0, behavior: 'smooth' });
+                } else if (S_KEY === code) {
+                    $(".section-active")[0].scrollBy({ top: 100, left: 0, behavior: 'smooth' });
+                }
+            });
             $(document).keyup(function (e) {
                 if ($("input:focus").length) {
                     return;
@@ -127,11 +138,7 @@ var PageTransitions = (function ($, options) {
                     previous();
                 } else if (ADVANCE_KEYS.indexOf(code) !== -1) {
                     advance();
-                } else if (W_KEY === code) {
-                    $(".section-active")[0].scrollBy({ top: -65, left: 0, behavior: 'smooth' });
-                } else if (S_KEY === code) {
-                    $(".section-active")[0].scrollBy({ top: 65, left: 0, behavior: 'smooth' });
-                }
+                } 
             });
         }
     }
