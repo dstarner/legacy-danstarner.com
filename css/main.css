@@ -573,6 +573,10 @@ input[type="submit"]:focus {
   overflow: auto;
 }
 
+.section-active {
+  outline: 0;
+}
+
 .section-active,
 .no-js .animated-section {
   opacity: 1;
