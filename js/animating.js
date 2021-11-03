@@ -118,8 +118,10 @@ var PageTransitions = (function ($, options) {
             }
         });
 
-        $(".content-area").on( "swipeleft", previous);
-        $(".content-area").on( "swiperight", advance);
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $(".content-area").on( "swipeleft", previous);
+            $(".content-area").on( "swiperight", advance);
+        }
     }
 
     function getActiveSection() {
