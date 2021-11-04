@@ -1,11 +1,11 @@
 from datetime import datetime
 from dataclasses import dataclass, asdict
+import feedparser
 import inspect
-
 import os
 import re
-from sre_constants import IN
 import requests
+from time import mktime
 from typing import List
 
 
@@ -67,14 +67,31 @@ class Article:
         })
         if not obj.cover_image:
             obj.cover_image = './img/default-blog-image.jpg'
-        obj.published_dt = datetime.strptime(obj.published_timestamp.split('T')[0], '%Y-%m-%d')
+        if not obj.published_dt:
+            obj.published_dt = datetime.strptime(obj.published_timestamp.split('T')[0], '%Y-%m-%d')
         return obj
 
 
 def get_articles():
-    resp = requests.get('https://dev.to/api/articles/me', headers={'api-key': API_KEY}).json()
+    dev_resp = requests.get('https://dev.to/api/articles/me', headers={'api-key': API_KEY}).json()
+    dev_articles = [Article.from_dict(data) for data in dev_resp if data['published']]
+
+    med_resp = feedparser.parse('https://medium.com/feed/@dstarner')
+    med_articles = [Article(
+        title=p['title'],
+        id=p['id'],
+        url=p['link'],
+        page_views_count='',
+        description='',
+        published=p['published'],
+        tag_list=[t['term'] for t in p['tags']],
+        cover_image='./img/default-blog-image.jpg',
+        published_timestamp='',
+        published_dt=datetime.fromtimestamp(mktime(p['published_parsed']))
+    ) for p in med_resp.entries]
+
     return sorted(
-        [Article.from_dict(data) for data in resp if data['published']],
+        dev_articles + med_articles,
         key=lambda a: a.published_dt, reverse=True,
     )
 
@@ -82,7 +99,7 @@ def article_to_html(article: Article):
     extras = {
         'published_at': article.published_dt.strftime('%d %B %Y'),
         'tag_html': '\n'.join([TAG_TEMPLATE.format(tag=tag) for tag in article.tag_list]),
-        'views_display': '<200' if article.page_views_count < 200 else article.page_views_count, 
+        'views_display': '<200' if isinstance(article.page_views_count, int) and article.page_views_count < 200 else article.page_views_count, 
     }
     return TEMPLATE.format(**extras, **asdict(article))
 
