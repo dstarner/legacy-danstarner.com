@@ -2411,7 +2411,7 @@ blockquote {
   }
 
   ul.main-menu {
-    margin: 30px 0;
+    margin: 15px 0;
   }
 
   ul.main-menu a {
@@ -2433,6 +2433,10 @@ blockquote {
   ul.main-menu .link-text {
     font-size: 16px;
     line-height: 21px;
+  }
+
+  div.header-buttons {
+    margin-top: 20px;
   }
 
   .menu-toggle {
