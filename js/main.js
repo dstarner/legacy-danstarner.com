@@ -29,8 +29,6 @@
 
         }
     }
-    // /Portfolio subpage filters
-
 
     // Hide Mobile menu
     function mobileMenuHide() {
