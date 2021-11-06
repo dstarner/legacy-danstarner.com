@@ -24,7 +24,7 @@ TEMPLATE = """
                                         {tag_html}
                                     </div>
                                     <a href="{url}">
-                                        <img src="{cover_image}" class="size-blog-masonry-image-two-c" alt="{title}" title="{title}" />
+                                        <img data-src="{cover_image}" class="lazyload size-blog-masonry-image-two-c" alt="{title}" title="{title}" />
                                         <div class="mask"></div>
                                     </a>
                                 </div>
