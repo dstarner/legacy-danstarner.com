@@ -47,21 +47,6 @@
     }
     // /Hide Mobile menu
 
-    // Custom scroll
-    function customScroll() {
-        var windowWidth = $(window).width();
-        if (windowWidth > 1024) {
-            $('.animated-section, .single-page-content').each(function() {
-                $(this).perfectScrollbar();
-            });
-        } else {
-            $('.animated-section, .single-page-content').each(function() {
-                $(this).perfectScrollbar('destroy');
-            });
-        }
-    }
-    // /Custom scroll
-
     // Contact form validator
     $(function () {
 
@@ -93,13 +78,6 @@
                 });
             }
         });
-        // .on('resize', function() { //Resize
-        //      mobileMenuHide();
-        //      $('.animated-section').each(function() {
-        //         $(this).perfectScrollbar('update');
-        //     });
-        //     customScroll();
-        // });
 
     // On Document Load
     $(document).ready(function () {

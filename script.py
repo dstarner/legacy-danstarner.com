@@ -12,6 +12,8 @@ from typing import List
 INDEX_PATH = './index.html'
 API_KEY = os.getenv('DEV_TO_TOKEN')
 
+DEFAULT_IMAGE = 'img/default-blog-image.webp'
+
 TAG_TEMPLATE = """
 <a href="#" title="View all posts in {tag}">{tag}</a>
 """
@@ -24,7 +26,7 @@ TEMPLATE = """
                                         {tag_html}
                                     </div>
                                     <a href="{url}">
-                                        <img data-src="{cover_image}" class="lazyload size-blog-masonry-image-two-c" alt="{title}" title="{title}" />
+                                        <img src="{cover_image}" class="size-blog-masonry-image-two-c" alt="{title}" title="{title}" />
                                         <div class="mask"></div>
                                     </a>
                                 </div>
@@ -66,7 +68,7 @@ class Article:
             if k in inspect.signature(cls).parameters
         })
         if not obj.cover_image:
-            obj.cover_image = './img/default-blog-image.jpg'
+            obj.cover_image = DEFAULT_IMAGE
         if not obj.published_dt:
             obj.published_dt = datetime.strptime(obj.published_timestamp.split('T')[0], '%Y-%m-%d')
         return obj
@@ -85,7 +87,7 @@ def get_articles():
         description='',
         published=p['published'],
         tag_list=[t['term'] for t in p['tags']],
-        cover_image='./img/default-blog-image.jpg',
+        cover_image=DEFAULT_IMAGE,
         published_timestamp='',
         published_dt=datetime.fromtimestamp(mktime(p['published_parsed']))
     ) for p in med_resp.entries]
