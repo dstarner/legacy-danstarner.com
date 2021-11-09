@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from datetime import datetime
 from dataclasses import dataclass, asdict
 import feedparser
@@ -9,21 +10,24 @@ from time import mktime
 from typing import List
 
 
+IMAGE_OVERRIDES = {
+    'https://medium.com/@dstarner/exploring-snug-harbor-60f49bc40786': 'https://miro.medium.com/max/4000/1*m60t2-xheDbpcutjclU4lg.jpeg'
+}
+
+
 INDEX_PATH = './index.html'
 API_KEY = os.getenv('DEV_TO_TOKEN')
 
 DEFAULT_IMAGE = 'img/default-blog-image.webp'
 
-TAG_TEMPLATE = """
-<a href="#" title="View all posts in {tag}">{tag}</a>
-"""
+TAG_TEMPLATE = """                                        <a href="#" title="View all posts in {tag}">{tag}</a>"""
 
 TEMPLATE = """
                         <div class="item post-1">
                             <div class="blog-card">
                                 <div class="media-block">
                                     <div class="category">
-                                        {tag_html}
+{tag_html}
                                     </div>
                                     <a href="{url}">
                                         <img src="{cover_image}" class="size-blog-masonry-image-two-c" alt="{title}" title="{title}" />
@@ -33,7 +37,7 @@ TEMPLATE = """
                                 <div class="post-info">
                                     <div class="post-details">
                                       <div class="post-date">{published_at}</div>
-                                      <div class="post-views">{views_display} Views</div>
+                                      <div class="post-views">{views_display}</div>
                                     </div>
                                     <a href="{url}">
                                         <h4 class="blog-item-title">{title}</h4>
@@ -82,7 +86,7 @@ def get_articles():
     med_articles = [Article(
         title=p['title'],
         id=p['id'],
-        url=p['link'],
+        url=p['link'].split('?')[0],
         page_views_count='',
         description='',
         published=p['published'],
@@ -91,6 +95,19 @@ def get_articles():
         published_timestamp='',
         published_dt=datetime.fromtimestamp(mktime(p['published_parsed']))
     ) for p in med_resp.entries]
+
+    for article in med_articles:
+        if article.url in IMAGE_OVERRIDES:
+            article.cover_image = IMAGE_OVERRIDES[article.url]
+            continue
+        resp = requests.get(article.url)
+        if resp.status_code != 200:
+            print(f'could not load {article.url}')
+            continue
+        soup = BeautifulSoup(resp.text, 'html.parser').find('article')
+        img = soup.find('img', {'role': 'presentation'})
+        if img:
+            article.cover_image = img['src']
 
     return sorted(
         dev_articles + med_articles,
@@ -101,7 +118,7 @@ def article_to_html(article: Article):
     extras = {
         'published_at': article.published_dt.strftime('%d %B %Y'),
         'tag_html': '\n'.join([TAG_TEMPLATE.format(tag=tag) for tag in article.tag_list]),
-        'views_display': '<200' if isinstance(article.page_views_count, int) and article.page_views_count < 200 else article.page_views_count, 
+        'views_display': f"{('<200' if article.page_views_count < 200 else article.page_views_count)} Views" if isinstance(article.page_views_count, int) else '', 
     }
     return TEMPLATE.format(**extras, **asdict(article))
 
