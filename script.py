@@ -138,6 +138,15 @@ def add_articles(articles):
 
     with open(INDEX_PATH, 'w') as f:
         f.write(new_content)
+    
+    s = 0
+    for a in articles:
+        try:
+            s += int(a.page_views_count)
+        except:
+            pass
+    
+    print(s)
 
 
 articles = get_articles()
