@@ -134,11 +134,6 @@ def add_articles(articles):
         content
     )
 
-    print(f'Changes: {replacements}')
-
-    with open(INDEX_PATH, 'w') as f:
-        f.write(new_content)
-    
     s = 0
     for a in articles:
         try:
@@ -146,7 +141,12 @@ def add_articles(articles):
         except:
             pass
     
-    print(s)
+    views = round(s, -3)
+
+    new_content, replacements = re.subn(r'id="view-count">(\n|.)*\+</span>', f'id="view-count">{views:,}+</span>', new_content)
+
+    with open(INDEX_PATH, 'w') as f:
+        f.write(new_content)
 
 
 articles = get_articles()
