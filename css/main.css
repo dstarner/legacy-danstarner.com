@@ -936,7 +936,11 @@ textarea.form-control, textarea.form-control:focus {
 }
 
 .info-list ul li {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 2px solid #09aeea;
 }
 
 .info-list .title {
@@ -2328,6 +2332,12 @@ blockquote {
   }
 }
 
+@media only screen and (max-width: 576px) {
+  .info-list ul li {
+    margin-top: 20px;
+  }
+}
+
 @media only screen and (min-width: 1025px) {
   .menu-toggle {
     display: none;
@@ -2559,10 +2569,6 @@ blockquote {
   .section-content {
     padding-left: 40px;
     padding-right: 40px;
-  }
-
-  .info-list {
-    margin-top: 20px;
   }
 
   .blog-post-content {
