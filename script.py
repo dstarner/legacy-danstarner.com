@@ -115,10 +115,15 @@ def get_articles():
     )
 
 def article_to_html(article: Article):
+    view_count = ''
+    if isinstance(article.page_views_count, int):
+        view_count = '<200'
+        if article.page_views_count >= 200:
+            view_count = f'{article.page_views_count:,}'
     extras = {
         'published_at': article.published_dt.strftime('%d %B %Y'),
         'tag_html': '\n'.join([TAG_TEMPLATE.format(tag=tag) for tag in article.tag_list]),
-        'views_display': f"{('<200' if article.page_views_count < 200 else article.page_views_count)} Views" if isinstance(article.page_views_count, int) else '', 
+        'views_display': f"{view_count} Views",
     }
     return TEMPLATE.format(**extras, **asdict(article))
 
